@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\QrVerificationController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\PenukaranPoinController; // ✅ import
+use App\Http\Controllers\Api\PenukaranPoinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\PenukaranPoinController; // ✅ import
 */
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/google-sync', [AuthController::class, 'syncGoogleUser']); // ✅ Tambahkan
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::post('/login', [AuthController::class, 'login']);
 */
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
+    Route::post('/profile/update', [AuthController::class, 'updateProfile']); // ✅ Tambahkan route update profil
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // User listing (filter role)
@@ -65,7 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reward-points', [RewardPointController::class, 'index']);
     Route::get('/reward-points/{id}', [RewardPointController::class, 'show']);
 
-    // ✅ Penukaran Poin (Riwayat Voucher)
+    // Penukaran Poin (Riwayat Voucher)
     Route::get('/penukaran-poin', [PenukaranPoinController::class, 'index']);
     Route::get('/penukaran-poin/{id}', [PenukaranPoinController::class, 'show']);
 
@@ -80,7 +82,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard/driver', [DashboardController::class, 'driver']);
     Route::get('/dashboard/penerima', [DashboardController::class, 'dashboardPenerima']);
 
-    // ========== QR Code Routes (tanpa verifikasi) ==========
+    // QR Code Routes (tanpa verifikasi)
     Route::prefix('qr')->group(function () {
         Route::get('/{distribusi}', [QrVerificationController::class, 'show']);
     });

@@ -17,8 +17,8 @@ class UpdateBarangDonasiRequest extends FormRequest
             'kategori_id' => 'sometimes|exists:kategori_barang,id',
             'nama_barang' => 'sometimes|string|max:255',
             'deskripsi' => 'nullable|string',
-            'foto_url' => 'nullable|url',
-            'kondisi' => 'sometimes|in:Baik,Cukup,Perlu Perbaikan',
+            'foto_url' => 'nullable|string',
+            'kondisi' => 'sometimes|in:Baik,Cukup,Perlu Perbaikan,Rusak Ringan',
             'status' => 'sometimes|in:Menunggu Pencocokkan,Tercocokkan,Penjemputan,Pengiriman,Selesai,Dibatalkan',
         ];
     }
